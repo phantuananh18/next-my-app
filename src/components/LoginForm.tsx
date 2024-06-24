@@ -44,25 +44,33 @@ const LoginForm = (props: LoginFormProps) => {
         <div>
           <TextField
             fullWidth
-            id='outlined'
+            id='email'
             label='Email'
+            name='email'
             placeholder='abc@email.com'
-            type='text'
+            type='email'
             autoComplete='email'
             value={formik.values.email}
             onChange={formik.handleChange}
+            onBlur = {formik.handleBlur}
+            helperText = {formik.touched.email && formik.errors.email}
+            error = {formik.touched.email && Boolean(formik.errors.email)}
           />
         </div>
         <div>
           <TextField
             fullWidth
-            id='outlined'
+            id='password'
             label='Password'
+            name='password'
             placeholder='*********'
-            type='text'
+            type='password'
             autoComplete='new-password'
             value={formik.values.password}
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            helperText = {formik.touched.password && formik.errors.password}
+            error = {formik.touched.password && Boolean(formik.errors.password)}
           />
         </div>
         <Button variant='contained' type='submit'>
