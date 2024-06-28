@@ -2,6 +2,7 @@
 import { TextField, Button } from '@mui/material';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { useRouter } from 'next/navigation';
 
 export interface LoginFormValues {
   email: string;
@@ -25,14 +26,16 @@ const validationSchema = yup.object().shape({
 
 const LoginForm = (props: LoginFormProps) => {
   const { initialValues, onSubmit: onSubmitForm } = props;
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: initialValues ?? defaultLoginForm,
     onSubmit: (values) => {
       const data = { email: values.email, password: values.password };
-      if (onSubmitForm) {
-        onSubmitForm(data);
-      }
+      // if (onSubmitForm) {
+      //   onSubmitForm(data);
+      // }
+      router.push('/dashboard');
     },
     validationSchema: validationSchema,
   });
@@ -55,6 +58,7 @@ const LoginForm = (props: LoginFormProps) => {
             onBlur = {formik.handleBlur}
             helperText = {formik.touched.email && formik.errors.email}
             error = {formik.touched.email && Boolean(formik.errors.email)}
+            InputLabelProps={{shrink: true}}
           />
         </div>
         <div>
@@ -71,6 +75,7 @@ const LoginForm = (props: LoginFormProps) => {
             onBlur={formik.handleBlur}
             helperText = {formik.touched.password && formik.errors.password}
             error = {formik.touched.password && Boolean(formik.errors.password)}
+            InputLabelProps={{shrink: true}}
           />
         </div>
         <Button variant='contained' type='submit'>
